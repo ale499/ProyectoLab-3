@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header h1 {
+    color: #007bff;
+}
+
+/* Estilos de los botones de iniciar y cerrar sesión */
+.login-btn, .logout-btn {
+    background-color: #17a2b8; /* Azul para iniciar sesión */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 5px; /* Espaciado entre botones */
+    transition: background-color 0.3s;
+}
+
+.logout-btn {
+    background-color: #dc3545; /* Rojo para cerrar sesión */
+}
+
+.login-btn:hover {
+    background-color: #138496;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 200px;
+    text-align: center;
+}
+
+button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.comprar {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+@media (max-width: 600px) {
+    .item {
+        width: 100%;
+    }
+}
+/* Estilo para el contenedor del dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Botón de flecha para desplegar el menú */
+.dropdown-btn {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Contenido del menú desplegable */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+/* Estilo de las opciones dentro del menú */
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+/* Mostrar el menú al hacer clic */
+.show { display: block; }
+
+/* Botón de carrito */
+.cart-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Imagen del icono de carrito */
+.cart-icon {
+    width: 50px; /* Ajusta el tamaño según necesites */
+    height: 50px;
+}
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Comida</title>
+    <link rel="stylesheet" href="./Css/index.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido al Menú de Comida</h1>
+        <div class="auth-buttons">
+            <button class="login-btn" onclick="window.location.href='registro.html'">Iniciar sesión</button>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">☰</button>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <button onclick="window.location.href='grillaDeGastos.html'">Historial de Compras</button>
+                    <button onclick="cerrarSesion()">Cerrar Sesión</button>
+                </div>
+            </div>
+            <button class="cart-btn" onclick="irAlCarrito()">
+                <img src="./Imagenes/4305700.png" alt="Carrito" class="cart-icon">
+            </button>
+        </div>
+
+    </header>
+
+    <section class="menu">
+        <div class="item">
+            <h2>Hamburguesa</h2>
+            <p>Precio: $8.00</p>
+            <label for="cantidad-hamburguesa">Cantidad:</label>
+            <input type="number" id="cantidad-hamburguesa" min="1" value="1">
+            <button onclick="agregarAlCarrito('Hamburguesa', 8, 'cantidad-hamburguesa')">Añadir al Carrito</button>
+        </div>
+
+        <div class="item">
+            <h2>Papas Fritas</h2>
+            <p>Precio: $3.50</p>
+            <label for="cantidad-papas">Cantidad:</label>
+            <input type="number" id="cantidad-papas" min="1" value="1">
+            <button onclick="agregarAlCarrito('Papas Fritas', 3.5, 'cantidad-papas')">Añadir al Carrito</button>
+        </div>
+
+        <div class="item">
+            <h2>Pizza</h2>
+            <p>Precio: $10.00</p>
+            <label for="cantidad-pizza">Cantidad:</label>
+            <input type="number" id="cantidad-pizza" min="1" value="1">
+            <button onclick="agregarAlCarrito('Pizza', 10, 'cantidad-pizza')">Añadir al Carrito</button>
+        </div>
+
+        <div class="item">
+            <h2>Bebida</h2>
+            <p>Precio: $2.00</p>
+            <label for="cantidad-bebida">Cantidad:</label>
+            <input type="number" id="cantidad-bebida" min="1" value="1">
+            <button onclick="agregarAlCarrito('Bebida', 2, 'cantidad-bebida')">Añadir al Carrito</button>
+        </div>
+    </section>
+    
+
+    <script src="./Js/Carrito.js"></script>
+
+    <script>
+        // Verificar si el usuario está logueado
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        // Elementos del DOM
+        const loginButton = document.getElementById('loginButton');
+        const logoutButton = document.getElementById('logoutButton');
+
+        // Mostrar el botón de cerrar sesión y ocultar el de inicio de sesión si el usuario está logueado
+        if (isLoggedIn === 'true') {
+            loginButton.style.display = 'none';
+            logoutButton.style.display = 'inline-block';
+        }
+
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            // Aquí puedes limpiar el localStorage o cualquier lógica necesaria
+            // Elimina el historial de gastos
+            localStorage.removeItem("gastos");
+            localStorage.removeItem('usuario'); // Por ejemplo, si guardas usuario en localStorage
+            window.location.href = 'index.html'; // Redirige a la página principal
+        }
+    </script>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem("gastos");
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = 'index.html';
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown-btn')) {
+                const dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>
