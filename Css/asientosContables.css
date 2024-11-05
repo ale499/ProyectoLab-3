@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff3e0;
+    margin: 0;
+    padding: 20px;
+    font-size: large;
+}
+
+h2 {
+    color: #555;
+    font-size: large;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    margin-top: 20px;
+}
+
+th, td {
+    font-size: large;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid #bbb;
+    text-align: left;
+    
+}
+
+th {
+    background-color: #ffe0b2;
+}
+
+tr:nth-child(even) {
+    background-color: #fff8e1;
+}
+
+table #ID{
+
+    border-top-left-radius: 9px ;
+    border-bottom-left-radius: 9px;
+
+}
+
+table #Fecha{
+
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+
+}
+
+
+@media screen and (max-width: 600px){
+
+    h2,th,td{
+        font-size: medium;
+    }
+
+    
+    
+}

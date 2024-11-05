@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Venta</title>
+    <link rel="stylesheet" href="./Css/formVentas.css">
+</head>
+<body>
+
+    <!-- Botón de Menú -->
+    <button class="menu-btn" onclick="window.location.href='index.html'">Menú</button>
+    <h1>Carrito de Compras</h1>
+    <div id="carrito"></div>
+
+    <!-- Formulario de ventas -->
+    <form>
+    
+        <label for="monto">Monto Total:</label>
+        <input type="number" id="monto" name="monto" readonly required>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <!-- Nuevos campos para el destinatario -->
+        <label for="nombreDestinatario">Nombre del destinatario:</label>
+        <input type="text" id="nombreDestinatario" name="nombreDestinatario" required>
+
+        <label for="telefono">Número de Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{10}" placeholder="10 dígitos">
+
+        <label for="direccion">Dirección:</label>
+        <textarea id="direccion" name="direccion" required></textarea>
+
+        <button type="button" onclick="registrarVenta()">Registrar Venta</button>
+    </form>
+
+    <script>
+        // Cargar carrito desde localStorage
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const carritoDiv = document.getElementById('carrito');
+        const montoTotalInput = document.getElementById('monto');
+
+        // Función para actualizar la lista de productos y el monto total
+        function actualizarCarrito() {
+            carritoDiv.innerHTML = ''; // Limpiar el contenido actual
+
+            if (carrito.length === 0) {
+                carritoDiv.innerHTML = '<p>El carrito está vacío.</p>';
+                montoTotalInput.value = 0;
+                return;
+            }
+
+            let total = 0;
+
+            carrito.forEach((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+
+                // Crear el contenedor para cada producto
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+
+                // Mostrar la información del producto
+                itemDiv.innerHTML = `
+                    <p>${item.cantidad}x ${item.nombre} ($${item.precio} c/u) - Subtotal: $${subtotal}</p>
+                    <button onclick="eliminarProducto(${index})">Eliminar</button>
+                `;
+
+                carritoDiv.appendChild(itemDiv);
+            });
+
+            montoTotalInput.value = total;
+        }
+
+        // Función para eliminar un producto por su índice
+        function eliminarProducto(index) {
+            carrito.splice(index, 1); // Eliminar el producto del carrito
+            localStorage.setItem('carrito', JSON.stringify(carrito)); // Actualizar en localStorage
+            actualizarCarrito(); // Actualizar la vista del carrito
+        }
+
+        // Llamar a la función para mostrar el carrito cuando se carga la página
+        actualizarCarrito();
+        // Función para registrar la venta en localStorage
+        function registrarVenta() {
+            const descripcion = carrito.map(item => `${item.cantidad}x ${item.nombre} ($${item.precio} c/u)`).join(", ");
+            const monto = parseFloat(montoTotalInput.value);
+            const fecha = document.getElementById('fecha').value;
+            const nombreDestinatario = document.getElementById('nombreDestinatario').value;
+            const telefono = document.getElementById('telefono').value;
+            const direccion = document.getElementById('direccion').value;
+
+            if (!fecha || !nombreDestinatario || !telefono || !direccion) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            // Crear un nuevo asiento contable
+            const nuevoAsiento = {
+                id: Date.now(), // Usar la marca de tiempo como ID único
+                tipo: "Venta",
+                descripcion,
+                monto,
+                fecha,
+                nombreDestinatario,
+                telefono,
+                direccion
+            };
+
+            // Obtener los asientos existentes de localStorage
+            const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
+            asientos.push(nuevoAsiento);
+
+            // Guardar la lista actualizada en localStorage
+            localStorage.setItem("asientos", JSON.stringify(asientos));
+
+            // Limpiar el carrito y mostrar mensaje de éxito
+            localStorage.removeItem("carrito");
+            alert("Compra registrada exitosamente.");
+            window.location.reload();
+
+            // Crear un nuevo gasto
+        const nuevoGasto = {
+            id: Date.now(), // Usar la marca de tiempo como ID único
+            descripcion,
+            monto,
+            fecha,
+            nombreDestinatario,
+            telefono,
+            direccion
+        };
+
+        // Obtener los gastos existentes de localStorage
+        const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+        gastos.push(nuevoGasto);
+
+        // Guardar la lista actualizada de gastos en localStorage
+        localStorage.setItem("gastos", JSON.stringify(gastos));
+
+        // Limpiar el carrito y mostrar mensaje de éxito
+        localStorage.removeItem("carrito");
+        alert("Compra registrada exitosamente.");
+        window.location.reload();
+    }                                                
+        
+    </script>
+
+    
+</body>
+</html>
