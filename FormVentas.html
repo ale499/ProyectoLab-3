@@ -32,6 +32,12 @@
         <label for="direccion">Dirección:</label>
         <textarea id="direccion" name="direccion" required></textarea>
 
+        <label for="metodoPago">Método de Pago:</label>
+    <select id="metodoPago" name="metodoPago">
+        <option value="mercadoPago">Mercado Pago</option>
+        <option value="cripto">Criptomonedas</option>
+    </select>
+
         <button type="button" onclick="registrarVenta()">Registrar Venta</button>
     </form>
 
@@ -83,23 +89,31 @@
         // Llamar a la función para mostrar el carrito cuando se carga la página
         actualizarCarrito();
         // Función para registrar la venta en localStorage
-        function registrarVenta() {
+        async function registrarVenta() {
             const descripcion = carrito.map(item => `${item.cantidad}x ${item.nombre} ($${item.precio} c/u)`).join(", ");
-            const monto = parseFloat(montoTotalInput.value);
+            let monto = parseFloat(montoTotalInput.value);
             const fecha = document.getElementById('fecha').value;
             const nombreDestinatario = document.getElementById('nombreDestinatario').value;
             const telefono = document.getElementById('telefono').value;
             const direccion = document.getElementById('direccion').value;
+
+            const metodoPago = document.getElementById('metodoPago').value;
+
 
             if (!fecha || !nombreDestinatario || !telefono || !direccion) {
                 alert("Por favor, completa todos los campos.");
                 return;
             }
 
+            // Si el método de pago es Criptomonedas, convierte el monto
+          if (metodoPago === "cripto") {
+              monto = await convertirCriptoAMonedaFiduciaria(monto, 'usd'); // convertir a USD por ejemplo
+            }
+
             // Crear un nuevo asiento contable
             const nuevoAsiento = {
                 id: Date.now(), // Usar la marca de tiempo como ID único
-                tipo: "Venta",
+                tipo: metodoPago === "cripto" ? "Venta en Criptomonedas" : "Venta en Mercado Pago",
                 descripcion,
                 monto,
                 fecha,
@@ -128,8 +142,23 @@
             fecha,
             nombreDestinatario,
             telefono,
-            direccion
+            direccion,
+            tipo: metodoPago === "cripto" ? "Venta en Criptomonedas" : "Venta en Mercado Pago"
+
         };
+
+        // Función para consultar una API de conversión de criptomonedas
+async function convertirCriptoAMonedaFiduciaria(monto, moneda) {
+    try {
+        const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${moneda}`);
+        const data = await response.json();
+        const tasaCambio = data.bitcoin[moneda];
+        return monto / tasaCambio;
+    } catch (error) {
+        alert("Error al convertir criptomonedas.");
+        return monto;
+    }
+}
 
         // Obtener los gastos existentes de localStorage
         const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
