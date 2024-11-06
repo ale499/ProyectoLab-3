@@ -24,38 +24,41 @@
     </table>
 
     <script>
-        // Cargar los asientos contables desde localStorage
-        const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
-        const tableBody = document.querySelector("#asientosTable tbody");
+        // Función para cargar los asientos contables desde localStorage
+        function cargarAsientos() {
+            const tableBody = document.querySelector("#asientosTable tbody");
+            tableBody.innerHTML = ""; // Limpiar la tabla antes de cargar
 
-        if (asientos.length === 0) {
-            // Mostrar un mensaje si no hay asientos contables
-            tableBody.innerHTML = "<tr><td colspan='5'>No hay asientos contables registrados.</td></tr>";
-        } else {
-            // Insertar cada asiento en la tabla
-            asientos.forEach(asiento => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${asiento.id}</td>
-                    <td>${asiento.tipo}</td>
-                    <td>${asiento.descripcion}</td>
-                    <td>$${asiento.monto.toFixed(2)}</td>
-                    <td>${asiento.fecha}</td>
-                    <td>${asiento.tipo}</td>
-                `;
-                tableBody.appendChild(row);
-            });
+            // Obtener la lista de asientos desde localStorage
+            const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
+
+            if (asientos.length === 0) {
+                // Mostrar un mensaje si no hay asientos contables
+                tableBody.innerHTML = "<tr><td colspan='5'>No hay asientos contables registrados.</td></tr>";
+            } else {
+                // Insertar cada asiento en la tabla
+                asientos.forEach(asiento => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${asiento.id}</td>
+                        <td>${asiento.tipo}</td>
+                        <td>${asiento.descripcion}</td>
+                        <td>$${asiento.monto.toFixed(2)}</td>
+                        <td>${asiento.fecha}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
         }
-    </script>
 
-    <script>
+        // Llamar a la función para cargar los asientos cuando se abra la página
+        cargarAsientos();
+
         // Verificar si el usuario es administrador
         if (!localStorage.getItem('isAdmin')) {
             alert("Acceso denegado. Por favor, inicia sesión como administrador.");
             window.location.href = 'adminLogin.html';
         }
-
-
     </script>
 </body>
 </html>

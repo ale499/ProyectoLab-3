@@ -7,7 +7,7 @@ import { MercadoPagoConfig, Preference } from 'mercadopago';
 // SDK de Mercado Pago
 // Agrega credenciales
 const client = new MercadoPagoConfig({ 
-    accessToken: 'TEST-4615173434199507-110517-432e80ec3d025908b9c0bc45408e02b0-1176208087' 
+    accessToken: 'APP_USR-4369973637072207-110611-ba5025f38a2779043a4cee0f94f2c0c4-2079159129' 
 });
 
 

@@ -221,6 +221,43 @@ function mostrarBotonPago() {
                 const preference = await response.json();
 
                 if (preference.init_point) {
+                    // Guardar la información de la compra en localStorage
+                    const descripcion = carrito.map(item => `${item.cantidad}x ${item.nombre} ($${item.precio} c/u)`).join(", ");
+                    const fecha = new Date().toISOString().split('T')[0]; // Fecha actual en formato YYYY-MM-DD
+                    const nombreDestinatario = document.getElementById('nombreDestinatario').value;
+                    const telefono = document.getElementById('telefono').value;
+                    const direccion = document.getElementById('direccion').value;
+
+                    const nuevoAsiento = {
+                        id: Date.now(),
+                        tipo: "Venta en Mercado Pago",
+                        descripcion,
+                        monto: parseFloat(montoTotalInput.value),
+                        fecha,
+                        nombreDestinatario,
+                        telefono,
+                        direccion
+                    };
+
+                    const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
+                    asientos.push(nuevoAsiento);
+                    localStorage.setItem("asientos", JSON.stringify(asientos));
+
+                    const nuevoGasto = {
+                        id: Date.now(),
+                        descripcion,
+                        monto: parseFloat(montoTotalInput.value),
+                        fecha,
+                        nombreDestinatario,
+                        telefono,
+                        direccion,
+                        tipo: "Venta en Mercado Pago"
+                    };
+
+                    const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+                    gastos.push(nuevoGasto);
+                    localStorage.setItem("gastos", JSON.stringify(gastos));
+
                     window.location.href = preference.init_point;
                 } else {
                     throw new Error('No init_point received from server');
@@ -236,7 +273,7 @@ function mostrarBotonPago() {
 }
 
 // Inicializar Mercado Pago
-const mp = new MercadoPago('TEST-da9f14c0-b5b2-430b-8890-93b487480ba4', {
+const mp = new MercadoPago('APP_USR-d6aa5a0e-935a-4744-abb9-697d6cc5e573', {
     locale: 'es-AR'
 });
 </script>

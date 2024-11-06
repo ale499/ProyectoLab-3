@@ -3,41 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión - Administrador</title>
+    <title>Admin Login</title>
     <link rel="stylesheet" href="./Css/adminLogin.css">
 </head>
 <body>
-    <h2>Inicio de Sesión de Administrador</h2>
-    <form id="adminLoginForm">
+
+    <h1>Login de Administrador</h1>
+    <form id="loginForm">
         <label for="username">Usuario:</label>
-        <input type="text" id="username" required>
-
+        <input type="text" id="username" name="username" required>
+        
         <label for="password">Contraseña:</label>
-        <input type="password" id="password" required>
-
-        <button type="button" onclick="login()">Ingresar</button>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Iniciar Sesión</button>
     </form>
 
     <script>
-        // Credenciales predefinidas
-        const adminCredentials = {
-            username: 'admin',
-            password: '123456'
-        };
-
-        // Función para validar el inicio de sesión
-        function login() {
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            if (username === adminCredentials.username && password === adminCredentials.password) {
-                // Guardar sesión en localStorage y redirigir
+            // Verificar las credenciales
+            if (username === 'admin' && password === '123456') {
                 localStorage.setItem('isAdmin', true);
+                alert('Inicio de sesión exitoso');
                 window.location.href = 'asientosContables.html';
             } else {
-                alert('Usuario o contraseña incorrectos.');
+                alert('Credenciales incorrectas');
             }
-        }
+        });
     </script>
 </body>
 </html>
