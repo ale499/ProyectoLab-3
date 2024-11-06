@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Venta</title>
     <link rel="stylesheet" href="./Css/formVentas.css">
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body>
 
@@ -33,13 +34,17 @@
         <textarea id="direccion" name="direccion" required></textarea>
 
         <label for="metodoPago">Método de Pago:</label>
-    <select id="metodoPago" name="metodoPago">
-        <option value="mercadoPago">Mercado Pago</option>
-        <option value="cripto">Criptomonedas</option>
-    </select>
+        <select id="metodoPago" name="metodoPago" onchange="mostrarBotonPago()">
+            <option value="mercadoPago">Mercado Pago</option>
+            <option value="cripto">Criptomonedas</option>
+        </select>
 
-        <button type="button" onclick="registrarVenta()">Registrar Venta</button>
+        <div id="botonPagoContainer"></div>
+
+    <button type="button" onclick="registrarVenta()">Registrar Venta</button>
     </form>
+
+    <script src="./Js/Carrito.js"></script>
 
     <script>
         // Cargar carrito desde localStorage
@@ -100,6 +105,7 @@
             const metodoPago = document.getElementById('metodoPago').value;
 
 
+
             if (!fecha || !nombreDestinatario || !telefono || !direccion) {
                 alert("Por favor, completa todos los campos.");
                 return;
@@ -147,6 +153,19 @@
 
         };
 
+         // Obtener los gastos existentes de localStorage
+         const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+         gastos.push(nuevoGasto);
+ 
+         // Guardar la lista actualizada de gastos en localStorage
+         localStorage.setItem("gastos", JSON.stringify(gastos));
+ 
+         // Limpiar el carrito y mostrar mensaje de éxito
+         localStorage.removeItem("carrito");
+         alert("Compra registrada exitosamente.");
+         window.location.reload();
+     }      
+
         // Función para consultar una API de conversión de criptomonedas
 async function convertirCriptoAMonedaFiduciaria(monto, moneda) {
     try {
@@ -160,21 +179,68 @@ async function convertirCriptoAMonedaFiduciaria(monto, moneda) {
     }
 }
 
-        // Obtener los gastos existentes de localStorage
-        const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
-        gastos.push(nuevoGasto);
+       
 
-        // Guardar la lista actualizada de gastos en localStorage
-        localStorage.setItem("gastos", JSON.stringify(gastos));
+// Función para mostrar el botón de pago según el método seleccionado
+function mostrarBotonPago() {
+    const metodoPago = document.getElementById('metodoPago').value;
+    const botonPagoContainer = document.getElementById('botonPagoContainer');
 
-        // Limpiar el carrito y mostrar mensaje de éxito
-        localStorage.removeItem("carrito");
-        alert("Compra registrada exitosamente.");
-        window.location.reload();
-    }                                                
-        
-    </script>
+    if (metodoPago === 'mercadoPago') {
+        botonPagoContainer.innerHTML = '<button id="checkout-btn" type="button">Pagar con Mercado Pago</button>';
+        document.getElementById('checkout-btn').addEventListener('click', async () => {
+            try {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    
+                if (carrito.length === 0) {
+                    alert('El carrito está vacío');
+                    return;
+                }
+
+                const orderData = carrito.map(item => ({
+                    title: item.nombre,
+                    quantity: parseInt(item.cantidad),
+                    unit_price: parseFloat(item.precio),
+                    currency_id: 'ARS'
+                }));
+
+                console.log('Sending order data:', orderData);
+
+                const response = await fetch('http://localhost:3001/create_preference', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ items: orderData })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const preference = await response.json();
+
+                if (preference.init_point) {
+                    window.location.href = preference.init_point;
+                } else {
+                    throw new Error('No init_point received from server');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al procesar el pago: ' + error.message);
+            }
+        });
+    } else {
+        botonPagoContainer.innerHTML = '';
+    }
+}
+
+// Inicializar Mercado Pago
+const mp = new MercadoPago('TEST-da9f14c0-b5b2-430b-8890-93b487480ba4', {
+    locale: 'es-AR'
+});
+</script>
+
+
 </body>
 </html>
