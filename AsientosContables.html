@@ -7,21 +7,32 @@
     <link rel="stylesheet" href="./Css/asientosContables.css">
 </head>
 <body>
-    <h2>Asientos Contables</h2>
-    <table id="asientosTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tipo</th>
-                <th>Descripción</th>
-                <th>Monto</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Los datos se insertarán aquí dinámicamente -->
-        </tbody>
+    <header>
+        <div class="containerpricipal_header">
+            <div class="containerItems_header">
+
+                <h2 class="titulo">Asientos Contables</h2>
+          </div>
+    </div>
+</header>
+
+<main>
+        <table id="asientosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Metodo de Pago</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se insertarán aquí dinámicamente -->
+            </tbody>
     </table>
+</main>
 
     <script>
         // Cargar los asientos contables desde localStorage

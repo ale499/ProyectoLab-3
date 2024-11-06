@@ -1,29 +1,64 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    background-color: #e8f0fe;
+    background-color: #8d9adb;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    /*  
     font-size: medium;
     display: flex;
     flex-direction: column;
     align-items: center;
+    */
 }
 
-h2 {
+/* Estilos del encabezado */
+
+.containerpricipal_header{
+
+    width: 100%;
+    
+}
+
+.containerItems_header{
+
+    background-color: #bbccde;
+    justify-content: space-between;
+    display: flex;  
+    align-items: center;
+    padding: 0 10px;
+
+}
+
+.titulo{
+    margin-right: 40rem;
+    text-align: center;
+    display: flex;
     color: #444;
 }
+
+.containerboton_menu{
+
+    
+    margin: 0;
+    
+
+}
+
+/* Estilos de la tabla */
 
 .table-container{
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: 90%;
     overflow-x: auto;
 }
 
 table {
-    width: 100%;
+    width: 98vw;
     max-width: 800%;
     border-collapse: collapse;
+    margin-left: 1rem;
     margin-top: 20px;
 }
 
@@ -35,6 +70,10 @@ th, td {
 
 th {
     background-color: #e0e0e0;
+}
+
+tr:nth-child(odd) {
+    background-color: #9bbfe6;
 }
 
 tr:nth-child(even) {

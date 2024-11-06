@@ -1,13 +1,16 @@
+/* Estilos generales */
 * {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    align-items: center;
     box-sizing: border-box;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #8d9adb;
     color: #333;
-    margin: 0;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +20,37 @@ header h1 {
     color: #007bff;
 }
 
+/* Estilos del encabezado */
+
+.containerpricipal_header {
+
+    width: 100%;
+   
+}
+
+.containerItems_header {
+    background-color: #bbccde;
+    text-align: center;
+    display: flex;
+    align-items: center;   
+}
+.titulo {
+
+    display: flex;
+    margin-left: 39rem;
+
+}
+
 /* Estilos de los botones de iniciar y cerrar sesión */
+
+
+.auth-buttons {  
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-left: 23rem;
+} 
+
 .login-btn, .logout-btn {
     background-color: #17a2b8; /* Azul para iniciar sesión */
     color: #fff;
@@ -31,33 +64,44 @@ header h1 {
 }
 
 .logout-btn {
-    background-color: #dc3545; /* Rojo para cerrar sesión */
+    background-color: #ffffff; /* Rojo para cerrar sesión */
 }
 
 .login-btn:hover {
     background-color: #138496;
 }
 
-.logout-btn:hover {
+#logout-btn:hover {
     background-color: #c82333;
 }
 
 .menu {
     display: flex;
+    flex-direction: grid;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 3rem;
 }
 
 .item {
+    box-sizing: border-box;
+    display: table-column;
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 8px;
     background-color: #fff;
     width: 200px;
     text-align: center;
+    box-shadow: 5px 2px 9px 9px rgba(0,0,0,0.1);
 }
+
+.item:hover {
+    transform: scale(1.05); 
+    transition: transform 0.3s ease; 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); 
+}
+
 
 button {
     background-color: #28a745;
@@ -77,6 +121,14 @@ button:hover {
 .comprar {
     margin-top: 20px;
     font-size: 18px;
+}
+
+.imagen {
+
+    width: 10vw; 
+    height: 15vh;
+    margin-bottom: 10px;
+
 }
 
 @media (max-width: 600px) {

@@ -7,55 +7,79 @@
     <link rel="stylesheet" href="./Css/index.css">
 </head>
 <body>
-    <header>
-        <h1>Bienvenido al Menú de Comida</h1>
-        <div class="auth-buttons">
-            <button class="login-btn" onclick="window.location.href='registro.html'">Iniciar sesión</button>
-            <div class="dropdown">
-                <button class="dropdown-btn" onclick="toggleDropdown()">☰</button>
-                <div class="dropdown-content" id="dropdownMenu">
-                    <button onclick="window.location.href='grillaDeGastos.html'">Historial de Compras</button>
-                    <button onclick="cerrarSesion()">Cerrar Sesión</button>
-                </div>
+<header>
+        <div class="containerpricipal_header">
+
+            <div class="containerItems_header">
+        
+                <h1 class="titulo">Pedilo para llevar</h1>
+        
+                <div class="auth-buttons">
+        
+                    <button class="login-btn" onclick="window.location.href='registro.html'">Iniciar sesión</button>
+        
+               
+                    <div class="dropdown">
+                
+                        <button class="dropdown-btn" onclick="toggleDropdown()">☰</button>
+        
+                        <div class="dropdown-content" id="dropdownMenu">
+                   
+                            <button onclick="window.location.href='grillaDeGastos.html'">Historial de Compras</button>
+                    
+                   
+                            <button id="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+                   
+                        </div>
+        
+                    </div>
+               
+                    <button class="cart-btn" onclick="irAlCarrito()">
+                
+                        <img src="./Imagenes/4305700.png" alt="Carrito" class="cart-icon">
+            
+                    </button>        
+                </div>    
             </div>
-            <button class="cart-btn" onclick="irAlCarrito()">
-                <img src="./Imagenes/4305700.png" alt="Carrito" class="cart-icon">
-            </button>
         </div>
 
-    </header>
+</header>
 
     <section class="menu">
         <div class="item">
             <h2>Hamburguesa</h2>
-            <p>Precio: $8.00</p>
+            <img src="Imagenes/(hamburguesas).jfif" alt="" class="imagen">
+            <p>Precio: $3900</p>
             <label for="cantidad-hamburguesa">Cantidad:</label>
             <input type="number" id="cantidad-hamburguesa" min="1" value="1">
-            <button onclick="agregarAlCarrito('Hamburguesa', 8, 'cantidad-hamburguesa')">Añadir al Carrito</button>
+            <button onclick="agregarAlCarrito('Hamburguesa', 3900, 'cantidad-hamburguesa')">Añadir al Carrito</button>
         </div>
 
         <div class="item">
             <h2>Papas Fritas</h2>
-            <p>Precio: $3.50</p>
+            <img src="Imagenes/(papas).jfif" alt="" class="imagen">
+            <p>Precio: $2000</p>
             <label for="cantidad-papas">Cantidad:</label>
             <input type="number" id="cantidad-papas" min="1" value="1">
-            <button onclick="agregarAlCarrito('Papas Fritas', 3.5, 'cantidad-papas')">Añadir al Carrito</button>
+            <button onclick="agregarAlCarrito('Papas Fritas', 2000, 'cantidad-papas')">Añadir al Carrito</button>
         </div>
 
         <div class="item">
             <h2>Pizza</h2>
-            <p>Precio: $10.00</p>
+            <img src="Imagenes/(pizza).jfif" alt="" class="imagen">
+            <p>Precio: $9800</p>
             <label for="cantidad-pizza">Cantidad:</label>
             <input type="number" id="cantidad-pizza" min="1" value="1">
-            <button onclick="agregarAlCarrito('Pizza', 10, 'cantidad-pizza')">Añadir al Carrito</button>
+            <button onclick="agregarAlCarrito('Pizza', 9800, 'cantidad-pizza')">Añadir al Carrito</button>
         </div>
 
         <div class="item">
             <h2>Bebida</h2>
-            <p>Precio: $2.00</p>
+            <img src="Imagenes/(bebidas).jfif" alt="" class="imagen">
+            <p>Precio: $1600</p>
             <label for="cantidad-bebida">Cantidad:</label>
             <input type="number" id="cantidad-bebida" min="1" value="1">
-            <button onclick="agregarAlCarrito('Bebida', 2, 'cantidad-bebida')">Añadir al Carrito</button>
+            <button onclick="agregarAlCarrito('Bebida', 1600, 'cantidad-bebida')">Añadir al Carrito</button>
         </div>
     </section>
     

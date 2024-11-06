@@ -7,17 +7,39 @@
     <link rel="stylesheet" href="./Css/registro.css">
 </head>
 <body>
-    <h1>Registro de Usuario</h1>
-    <form id="registro-form">
-        <label for="username">Nombre de usuario:</label>
-        <input type="text" id="username" required>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" required>
+    <header>
+        <div id="header_container">
+            <h1 class="titulo">Registro de Usuario</h1>
+        </div>
+    </header>    
 
-        <button type="button" onclick="registrarUsuario()">Registrar</button>
-    </form>
 
+<main>
+
+    <section id="section-sign-up">
+            <div class="container">
+                <div id="container-login">
+                    <img src="Imagenes/(login_negro).png" alt="logo de perfil">
+                    <div id="sign-up">
+                        <label for="username">Nombre de usuario:</label>
+                        <input type="text" id="username" required>
+
+                        <label for="sign_up_email">Email:</label>
+                        <input type="email" id="sign_up_email" required>
+
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" required>
+                       
+                        <label for="repeat_password">Repetir Contraseña:</label>    
+                        <input type="password" id="repeat_password" required>
+                    </div>
+                    <button id="button-sign-up" type="button" onclick="registrarUsuario()">REGISTRARSE</button>
+                    <p>¿Ya tienes cuenta? <span id="link-sign-up" class="link">Iniciar sesión</span></p>
+                </div>  
+            </div>
+        </section>
+</main>
     <script>
         // Función para registrar usuario y guardarlo en localStorage
         function registrarUsuario() {

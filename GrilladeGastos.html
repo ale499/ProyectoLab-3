@@ -7,8 +7,23 @@
     <link rel="stylesheet" href="./Css/grillaDeGastos.css">
 </head>
 <body>
-    <button onclick="window.location.href='index.html'" class="menu-btn">Menú</button>
-    <h2>Gastos Registrados</h2>
+
+<header>
+    <div class="containerpricipal_header">
+        <div class="containerItems_header">
+
+            <div class="containerboton_menu">
+                <button onclick="window.location.href='index.html'" class="menu-btn">Menú</button>
+            </div>
+            
+            <h2 class="titulo">Gastos Registrados</h2>
+
+        </div>
+    </div>
+</header>    
+    
+    
+<main>   
     <table id="gastosTable">
         <thead>
             <tr>
@@ -19,12 +34,14 @@
                 <th>Nombre del Destinatario</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
+                <th>Metodo de Pago</th>
             </tr>
         </thead>
         <tbody>
             <!-- Los datos se insertarán aquí dinámicamente -->
         </tbody>
     </table>
+</main>    
 
     <script>
         // Función para cargar gastos desde localStorage
