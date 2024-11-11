@@ -8,14 +8,18 @@
 </head>
 <body>
     <h2>Asientos Contables</h2>
+    <button onclick="borrarDatos()">Borrar Datos</button>
+    <button onclick="window.location.href='libroMayor.html'">Ir a Libro Mayor</button>
     <table id="asientosTable">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Tipo</th>
                 <th>Descripción</th>
-                <th>Monto</th>
+                <th>Débito</th>
+                <th>Crédito</th>
                 <th>Fecha</th>
+                <th>Cuenta</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +28,6 @@
     </table>
 
     <script>
-        // Función para cargar los asientos contables desde localStorage
         function cargarAsientos() {
             const tableBody = document.querySelector("#asientosTable tbody");
             tableBody.innerHTML = ""; // Limpiar la tabla antes de cargar
@@ -34,7 +37,7 @@
 
             if (asientos.length === 0) {
                 // Mostrar un mensaje si no hay asientos contables
-                tableBody.innerHTML = "<tr><td colspan='5'>No hay asientos contables registrados.</td></tr>";
+                tableBody.innerHTML = "<tr><td colspan='7'>No hay asientos contables registrados.</td></tr>";
             } else {
                 // Insertar cada asiento en la tabla
                 asientos.forEach(asiento => {
@@ -43,12 +46,21 @@
                         <td>${asiento.id}</td>
                         <td>${asiento.tipo}</td>
                         <td>${asiento.descripcion}</td>
-                        <td>$${asiento.monto.toFixed(2)}</td>
+                        <td>${asiento.debito ? `$${asiento.debito.toFixed(2)}` : ''}</td>
+                        <td>${asiento.credito ? `$${asiento.credito.toFixed(2)}` : ''}</td>
                         <td>${asiento.fecha}</td>
+                        <td>${asiento.cuenta}</td>
                     `;
                     tableBody.appendChild(row);
                 });
             }
+        }
+
+        function borrarDatos() {
+            localStorage.removeItem("asientos");
+            localStorage.removeItem("idCounter");
+            cargarAsientos();
+            alert("Datos borrados exitosamente.");
         }
 
         // Llamar a la función para cargar los asientos cuando se abra la página

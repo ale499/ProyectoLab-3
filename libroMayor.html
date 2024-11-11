@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro Mayor</title>
+    <link rel="stylesheet" href="./Css/libroMayor.css">
+</head>
+<body>
+    <h2>Libro Mayor</h2>
+    <button onclick="borrarDatos()">Borrar Datos</button>
+    <button onclick="window.location.href='asientosContables.html'">Ir a Asientos Contables</button>
+    <div id="libroMayor"></div>
+
+    <script>
+        function cargarLibroMayor() {
+            const libroMayorDiv = document.getElementById("libroMayor");
+            libroMayorDiv.innerHTML = ""; // Limpiar el contenido antes de cargar
+
+            // Obtener los movimientos desde localStorage
+            const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
+
+            if (asientos.length === 0) {
+                // Mostrar un mensaje si no hay movimientos registrados
+                libroMayorDiv.innerHTML = "<p>No hay movimientos registrados.</p>";
+                return;
+            }
+
+            // Agrupar los movimientos por cuenta
+            const cuentas = {};
+            asientos.forEach(asiento => {
+                if (!cuentas[asiento.cuenta]) {
+                    cuentas[asiento.cuenta] = [];
+                }
+                cuentas[asiento.cuenta].push(asiento);
+            });
+
+            // Mostrar los movimientos por cuenta
+            for (const cuenta in cuentas) {
+                const cuentaDiv = document.createElement("div");
+                cuentaDiv.classList.add("cuenta");
+
+                const cuentaTitulo = document.createElement("h3");
+                cuentaTitulo.textContent = `Cuenta: ${cuenta}`;
+                cuentaDiv.appendChild(cuentaTitulo);
+
+                const table = document.createElement("table");
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Débito</th>
+                            <th>Crédito</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+                cuentaDiv.appendChild(table);
+
+                const tableBody = table.querySelector("tbody");
+                let saldo = 0;
+                cuentas[cuenta].forEach(asiento => {
+                    saldo += asiento.debito - asiento.credito;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${asiento.fecha}</td>
+                        <td>${asiento.descripcion}</td>
+                        <td>${asiento.debito ? `$${asiento.debito.toFixed(2)}` : ''}</td>
+                        <td>${asiento.credito ? `$${asiento.credito.toFixed(2)}` : ''}</td>
+                        <td>$${saldo.toFixed(2)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                libroMayorDiv.appendChild(cuentaDiv);
+            }
+        }
+
+        function borrarDatos() {
+            localStorage.removeItem("asientos");
+            localStorage.removeItem("idCounter");
+            cargarLibroMayor();
+            alert("Datos borrados exitosamente.");
+        }
+
+        // Llamar a la función para cargar el libro mayor cuando se abra la página
+        cargarLibroMayor();
+
+        // Verificar si el usuario es administrador
+        if (!localStorage.getItem('isAdmin')) {
+            alert("Acceso denegado. Por favor, inicia sesión como administrador.");
+            window.location.href = 'adminLogin.html';
+        }
+    </script>
+</body>
+</html>
