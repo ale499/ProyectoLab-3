@@ -1,60 +1,153 @@
 /* Estilos Generales */
-body {
+body ,html {
     font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+/* Estilos del Encabezado */
+
+#header_container {
+    background-color: #bbccde;
+    width: 100%;
+    padding: 10px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f4f4f9;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+.titulo{
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color: #333333;
 }
 
-#registro-form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
+/* Contenedor Principal de Login y Registro  */
+.container{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    min-height: 85vh;
+    background-color:  #8d9adb;
+}
+/* Contenedor de Login */
+#container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    background-color: #FFFFFF;
+    border: 2px solid ;
+    border-radius: 20px;
+    padding: 30px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos de los Labels y Inputs */
-label {
-    color: #555;
+
+#container-login img {
+    width: 72px;
+    border: 2px solid ;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+#login {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 5px;
+}
+
+#login label {
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 100%;
+#login input {
+    background-color: #EEEEEE;
+    border: 1px solid #333333;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 3px 0 15px;
 }
+/* Boton de login */
 
-button {
-    background-color: #007bff;
-    color: #ffffff;
+#button-login {
+    background-color: #17a2b8; 
     padding: 10px;
+    border-radius: 10px;
+    width: 50%;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+#button-login:hover {
+    background-color: #138496;
+    color: #ffffff;
 }
 
+#container-sign-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    background-color: #FFFFFF;
+    border: 2px solid #17a2b8;
+    border-radius: 20px;
+    padding: 25px 15px;
+    margin-top: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#container-sign-up img {
+    width: 72px;
+    border: 2px solid  #17a2b8;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+#sign-up {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 5px;
+}
+
+#sign-up label {
+    font-weight: bold;
+}
+
+#sign-up input {
+    background-color: #EEEEEE;
+    border: 1px solid #333333;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+/* Botón de Registro */
+#button-sign-up {
+    background-color: #17a2b8; 
+    padding: 10px;
+    border-radius: 10px;
+    width: 50%;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+#button-sign-up:hover {
+    background-color: #138496;
+    color: #ffffff;
+}
+
+/* Estilos de los Labels y Inputs */
 /* Media Query para Responsividad */
 @media (max-width: 600px) {
     body {

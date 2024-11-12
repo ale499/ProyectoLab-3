@@ -1,23 +1,97 @@
+/* Estilos generales */
 * {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+html,body{
+    height: 100%;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    
+   
+
+}
+
+body{
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: #8d9adb;
+    color: #333;
+
 }
 
-header h1 {
-    color: #007bff;
+/* ===Header=== */
+
+header{
+    width: 100%;
+    background-color: #bbccde;
 }
+
+.containerpricipal_header {
+
+    width: 100%;
+   
+}
+
+.containerItems_header {
+    
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* O lo que prefieras para el contenido */
+    margin: auto;
+
+}
+.titulo {
+    margin-left: 17rem;
+    flex-grow: 1;
+    text-align: center;
+    color: #007bff;
+
+    font-size: 2.0rem;
+
+
+}
+
+
+/* ===Main=== */
 
 /* Estilos de los botones de iniciar y cerrar sesión */
+
+main{
+
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #8d9adb;
+
+}
+
+
+.containerView{
+
+    display: grid;
+    grid-template-columns: 0.2fr 0.8fr;
+
+}
+
+
+.auth-buttons {  
+    
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  
+} 
+
 .login-btn, .logout-btn {
     background-color: #17a2b8; /* Azul para iniciar sesión */
     color: #fff;
@@ -31,33 +105,49 @@ header h1 {
 }
 
 .logout-btn {
-    background-color: #dc3545; /* Rojo para cerrar sesión */
+    background-color: #ffffff; /* Rojo para cerrar sesión */
 }
 
 .login-btn:hover {
     background-color: #138496;
 }
 
-.logout-btn:hover {
+#logout-btn:hover {
     background-color: #c82333;
 }
 
+.container_menu{
+
+ margin-right: 4rem;
+
+}
+
 .menu {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 0.6fr);
+    gap: 2vh;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 3rem;
 }
 
 .item {
+    box-sizing: border-box;
+    display: table-column;
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     background-color: #fff;
-    width: 200px;
+    width: auto;
     text-align: center;
+    box-shadow: 5px 2px 9px 9px rgba(0,0,0,0.1);
 }
+
+.item:hover {
+    transform: scale(1.05); 
+    transition: transform 0.3s ease; 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); 
+}
+
 
 button {
     background-color: #28a745;
@@ -79,6 +169,77 @@ button:hover {
     font-size: 18px;
 }
 
+.imagen {
+
+    width: 20vw; 
+    height: 25vh;
+    margin-bottom: 10px;
+
+}
+
+/* ===ContainerView=== */
+
+
+/* ===List Aside=== */
+
+.listAside {
+    
+    margin-right: 10rem;
+    width: 100%;
+    max-width: 300px; /* Ajusta el ancho del aside según necesites */
+    padding: 20px;
+    background-color: #f9f9f9; /* Color de fondo claro */
+    border: 1px solid #ddd; /* Borde sutil */
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+     
+}
+
+.listAside h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.listAside .filtro_img {
+
+    margin-left: 2rem; /* Espacio entre el texto y el icono */
+    width: 5vw; 
+    height: 10vh;
+}
+
+/* Estilos para la lista de categorías (opcional, si tienes un listado) */
+.listAside ul {
+    align-items: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.listAside ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    color: #555;
+}
+
+.listAside ul li:last-child {
+    border-bottom: none;
+}
+
+.listAside ul li:hover {
+    color: #007bff; /* Color de texto al pasar el cursor */
+    cursor: pointer;
+}
+
+
+
+
+/* ===Media Queries=== */
 @media (max-width: 600px) {
     .item {
         width: 100%;

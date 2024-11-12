@@ -1,7 +1,7 @@
-
+/* Estilos generales y del body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #fbd2d7;
+    background-color: #8d9adb;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,9 +9,32 @@ body {
     margin: 0;
 }
 
-h2 {
+/* Estilos del contenedor de login */
+
+.img_container{
+    margin-left: 9rem;
+}
+
+.container_principal{
+    background-color: #fff;
+    padding: 25px 15px;
+    border: 1px solid #5f5fe5;
+    border-radius: 1rem;
+}
+
+.container_loginform{
+
+    background-color: #fff;
     text-align: center;
-    color: #d81b60;
+    width: 100%;
+    max-width: 400px;
+
+}
+
+h2 {
+    margin-bottom: 20px ;
+    text-align: center;
+    color: #000000;
 }
 
 form {
@@ -45,7 +68,7 @@ input[type="password"] {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #d81b60;
+    background-color: #17a2b8;
     border: none;
     color: #fff;
     font-size: 16px;
@@ -57,12 +80,12 @@ button {
 }
 
 button:hover {
-    background-color: #b6184e;
+    background-color: #138496;
 }
 
 button:focus,
 input:focus {
     outline: none;
-    border-color: #d81b60;
+    border-color: #1b4df1;
 }
 
