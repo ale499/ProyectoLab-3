@@ -1,6 +1,29 @@
 // Verificar si hay un usuario registrado en el almacenamiento local
 const usuario = JSON.parse(localStorage.getItem('usuario'));
 
+// Función para inicializar productos en el localStorage (si no están ya almacenados)
+const inicializarProductos = () => {
+    let productos = JSON.parse(localStorage.getItem("productos"));
+    if (!productos || productos.length === 0) {
+        // Definir los productos iniciales
+        const productosIniciales = [
+            { id: 1, nombre: "Hamburguesa", categoria: "Hamburguesas", precio: 3900, img: "Imagenes/(hamburguesas).jfif" },
+            { id: 2, nombre: "Papas Fritas con Cheddar", categoria: "Papas", precio: 2000, img: "Imagenes/cheddar-cheese-melted-french-fries_908985-22496.avif" },
+            { id: 3, nombre: "Pizza", categoria: "Pizza", precio: 9800, img: "Imagenes/(pizza).jfif" },
+            { id: 4, nombre: "Helado", categoria: "Postres", precio: 1600, img: "Imagenes/banana-split-620.webp" },
+            { id: 5, nombre: "Combo Pedilo", categoria: "Combos", precio: 6000, img: "Imagenes/hamburger-potato-combo-staple-fast-600nw-2325787009.webp" },
+            { id: 6, nombre: "Combo Pedilo para chicos", categoria: "Combos", precio: 3500, img: "Imagenes/infantil02happystar-0351201390079782.jpg" }
+        ];
+        // Guardar productos en el localStorage
+        localStorage.setItem("productos", JSON.stringify(productosIniciales));
+    }
+};
+
+// Llamar a la función de inicialización de productos al cargar el carrito
+inicializarProductos();
+
+
+
 // Función para agregar un artículo al carrito solo si hay sesión iniciada
 function agregarAlCarrito(nombre, precio, cantidadId) {
     if (!usuario) {
@@ -32,6 +55,46 @@ function irAlCarrito() {
     }
     window.location.href = "FormVentas.html";
 }
+
+// Event listener for DOMContentLoaded event
+document.addEventListener("DOMContentLoaded", () => {
+    // Función para filtrar productos por categoría
+    function filtrarProductos(categoria) {
+        // Obtener productos de localStorage
+        const productos = JSON.parse(localStorage.getItem("productos")) || [];
+
+        // Filtrar productos por la categoría seleccionada
+        const productosFiltrados = categoria ?
+            productos.filter(producto => producto.categoria === categoria) :
+            productos;
+
+        // Contenedor donde se mostrarán los productos
+        const contenedorProductos = document.getElementById("productos-lista");
+        if (contenedorProductos) {
+            contenedorProductos.innerHTML = ""; // Limpiar el contenedor
+
+            // Crear HTML para cada producto y agregarlo al contenedor
+            productosFiltrados.forEach(producto => {
+                const productoHTML = `
+                    <div class="item">
+                        <h2>${producto.nombre}</h2>
+                        <img src="${producto.img}" alt="${producto.nombre}" class="imagen">
+                        <p>Precio: $${producto.precio}</p>
+                        <label for="cantidad-${producto.id}">Cantidad:</label>
+                        <input type="number" id="cantidad-${producto.id}" min="1" value="1">
+                        <button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, 'cantidad-${producto.id}')">Añadir al Carrito</button>
+                    </div>
+                `;
+                contenedorProductos.innerHTML += productoHTML;
+            });
+        } else {
+            console.error("Element with ID 'productos-lista' not found");
+        }
+    }
+
+    // Llamar a la función filtrarProductos con una categoría vacía para mostrar todos los productos al cargar la página
+    filtrarProductos("");
+});
 
 // Función para registrar venta en el "carrito" (localStorage)
 function registrarVenta() {
@@ -70,5 +133,9 @@ function registrarVenta() {
         localStorage.removeItem('usuario'); // Por ejemplo, si guardas usuario en localStorage
         window.location.href = 'index.html'; // Redirige a la página principal
     }
+
+
+
+
 }
 

@@ -45,43 +45,98 @@
 
 </header>
 
-    <section class="menu">
-        <div class="item">
-            <h2>Hamburguesa</h2>
-            <img src="Imagenes/(hamburguesas).jfif" alt="" class="imagen">
-            <p>Precio: $3900</p>
-            <label for="cantidad-hamburguesa">Cantidad:</label>
-            <input type="number" id="cantidad-hamburguesa" min="1" value="1">
-            <button onclick="agregarAlCarrito('Hamburguesa', 3900, 'cantidad-hamburguesa')">Añadir al Carrito</button>
-        </div>
+<main>
 
-        <div class="item">
-            <h2>Papas Fritas</h2>
-            <img src="Imagenes/(papas).jfif" alt="" class="imagen">
-            <p>Precio: $2000</p>
-            <label for="cantidad-papas">Cantidad:</label>
-            <input type="number" id="cantidad-papas" min="1" value="1">
-            <button onclick="agregarAlCarrito('Papas Fritas', 2000, 'cantidad-papas')">Añadir al Carrito</button>
-        </div>
+    <div class="containerView">
 
-        <div class="item">
-            <h2>Pizza</h2>
-            <img src="Imagenes/(pizza).jfif" alt="" class="imagen">
-            <p>Precio: $9800</p>
-            <label for="cantidad-pizza">Cantidad:</label>
-            <input type="number" id="cantidad-pizza" min="1" value="1">
-            <button onclick="agregarAlCarrito('Pizza', 9800, 'cantidad-pizza')">Añadir al Carrito</button>
-        </div>
+        <aside class="listAside">
 
-        <div class="item">
-            <h2>Bebida</h2>
-            <img src="Imagenes/(bebidas).jfif" alt="" class="imagen">
-            <p>Precio: $1600</p>
-            <label for="cantidad-bebida">Cantidad:</label>
-            <input type="number" id="cantidad-bebida" min="1" value="1">
-            <button onclick="agregarAlCarrito('Bebida', 1600, 'cantidad-bebida')">Añadir al Carrito</button>
+            <h2>Categorias
+                <img class = "filtro_img" src="Imagenes/filter_list_24dp_000000_FILL0_wght400_GRAD0_opsz24.png" alt="">
+            
+            </h2>
+
+            <ul id = "ListFilter">
+
+                <li onclick="filtrarProductos('Hamburguesas')">Hamburguesas</li>
+                <li onclick="filtrarProductos('Papas')">Papas</li>
+                <li onclick="filtrarProductos('Pizza')">Pizza</li>
+                <li onclick="filtrarProductos('Postres')">Postres</li>
+                <li onclick="filtrarProductos('Combos')">Combos</li>
+                <li onclick="filtrarProductos('')">Todos</li>
+
+            </ul>
+
+
+        </aside>
+
+    
+        <div class="container_menu">
+
+            <section class="menu" id="productos-lista">
+
+                <div class="item">
+                    <h2>Hamburguesa</h2>
+                    <img src="Imagenes/(hamburguesas).jfif" alt="" class="imagen">
+                    <p>Precio: $3900</p>
+                    <label for="cantidad-hamburguesa">Cantidad:</label>
+                    <input type="number" id="cantidad-hamburguesa" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Hamburguesa', 3900, 'cantidad-hamburguesa')">Añadir al Carrito</button>
+                </div>
+    
+    
+                <div class="item">
+                    <h2>Papas Fritas con Cheddar</h2>
+                    <img src="Imagenes/cheddar-cheese-melted-french-fries_908985-22496.avif" alt="" class="imagen">
+                    <p>Precio: $2000</p>
+                    <label for="cantidad-papas">Cantidad:</label>
+                    <input type="number" id="cantidad-papas" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Papas Fritas', 2000, 'cantidad-papas')">Añadir al Carrito</button>
+                </div>
+
+    
+                <div class="item">
+                    <h2>Pizza</h2>
+                    <img src="Imagenes/(pizza).jfif" alt="" class="imagen">
+                    <p>Precio: $9800</p>
+                    <label for="cantidad-pizza">Cantidad:</label>
+                    <input type="number" id="cantidad-pizza" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Pizza', 9800, 'cantidad-pizza')">Añadir al Carrito</button>
+                </div>
+
+    
+                <div class="item">
+                    <h2>Helado</h2>
+                    <img src="Imagenes/banana-split-620.webp" alt="" class="imagen">
+                    <p>Precio: $1600</p>
+                    <label for="cantidad-helados">Cantidad:</label>
+                    <input type="number" id="cantidad-helados" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Helados', 1600, 'cantidad-helados')">Añadir al Carrito</button>
+                </div>
+
+                <div class="item">
+                    <h2>Combo Pedilo</h2>
+                    <img src="Imagenes/hamburger-potato-combo-staple-fast-600nw-2325787009.webp" alt="" class="imagen">
+                    <p>Precio: $6000</p>
+                    <label for="cantidad-combo">Cantidad:</label>
+                    <input type="number" id="cantidad-combo" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Combo Pedilo', 6000, 'cantidad-combo')">Añadir al Carrito</button>
+                </div>
+
+                <div class="item">
+                    <h2>Combo Pedilo para chicos</h2>
+                    <img src="Imagenes/infantil02happystar-0351201390079782.jpg" alt="" class="imagen">
+                    <p>Precio: $3500</p>
+                    <label for="cantidad-combo_niños">Cantidad:</label>
+                    <input type="number" id="cantidad-combo_niños" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Combo Pedilo', 3500, 'cantidad-combo_niños')">Añadir al Carrito</button>
+                </div>
+
+            </section>
+            
         </div>
-    </section>
+    </div>
+</main>
     
 
     <script src="./Js/Carrito.js"></script>
@@ -133,5 +188,44 @@
             }
         };
     </script>
+
+    <script>
+    
+        
+     function filtrarProductos(categoria) {
+        // Obtener productos de localStorage
+        const productos = JSON.parse(localStorage.getItem("productos")) || [];
+    
+        // Filtrar productos por la categoría seleccionada
+        const productosFiltrados = categoria ? 
+            productos.filter(producto => producto.categoria === categoria) : 
+            productos;
+    
+        // Contenedor donde se mostrarán los productos
+        const contenedorProductos = document.getElementById("productos-lista");
+        contenedorProductos.innerHTML = ""; // Limpiar el contenedor
+    
+        // Crear HTML para cada producto y agregarlo al contenedor
+        productosFiltrados.forEach(producto => {
+            const productoHTML = `
+                <div class="item">
+                    <h2>${producto.nombre}</h2>
+                    <img src="${producto.img}" alt="${producto.nombre}" class="imagen">
+                    <p>Precio: $${producto.precio}</p>
+                    <label for="cantidad-${producto.id}">Cantidad:</label>
+                    <input type="number" id="cantidad-${producto.id}" min="1" value="1">
+                    <button onclick="agregarAlCarrito('${producto.nombre}', ${producto.precio}, 'cantidad-${producto.id}')">Añadir al Carrito</button>
+                </div>
+            `;
+            contenedorProductos.innerHTML += productoHTML;
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        filtrarProductos("");
+    });
+
+    </script>
+
 </body>
 </html>
