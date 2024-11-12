@@ -7,10 +7,11 @@
 }
 
 html,body{
-    height: 100%;
     margin: 0;
     padding: 0;
-    
+    height: 100%;
+    width: 100%;
+    display: flex;
    
 
 }
@@ -53,10 +54,20 @@ header{
     flex-grow: 1;
     text-align: center;
     color: #007bff;
-
     font-size: 2.0rem;
+    animation: fadeIn 2s ease-in-out; /* Aplicar la animación */
+}
 
-
+/* Definir la animación */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -76,11 +87,12 @@ main{
 }
 
 
+
 .containerView{
 
-    display: grid;
-    grid-template-columns: 0.2fr 0.8fr;
-
+    display: flex;
+    flex-direction: row;
+    padding-left: 20vh;
 }
 
 
@@ -89,6 +101,7 @@ main{
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    
   
 } 
 
@@ -183,8 +196,6 @@ button:hover {
 /* ===List Aside=== */
 
 .listAside {
-    
-    margin-right: 10rem;
     width: 100%;
     max-width: 300px; /* Ajusta el ancho del aside según necesites */
     padding: 20px;
@@ -192,7 +203,12 @@ button:hover {
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     flex-direction: column;
-     
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0; /* Elimina los márgenes */
+    position: fixed; /* Fija el aside a la izquierda */
+    top: 8.8vh; /* Ajusta la posición superior si es necesario */
+    left: 0; /* Asegura que esté pegado a la izquierda */
 }
 
 .listAside h2 {
@@ -250,6 +266,7 @@ button:hover {
     position: relative;
     display: inline-block;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 /* Botón de flecha para desplegar el menú */
@@ -301,11 +318,14 @@ button:hover {
     border: none;
     cursor: pointer;
     margin-left: 10px;
+    margin-bottom: 10px;
+    
+
 }
 
 /* Imagen del icono de carrito */
 .cart-icon {
-    width: 50px; /* Ajusta el tamaño según necesites */
-    height: 50px;
+    width: 40px; /* Ajusta el tamaño según necesites */
+    height: 40px;
 }
 

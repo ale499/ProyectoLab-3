@@ -121,6 +121,9 @@
                 alert("Por favor, completa todos los campos.");
                 return;
             }
+            if (metodoPago === "cripto") {
+                monto = await convertirCriptoAMonedaFiduciaria(monto, 'usd'); // convertir a USD por ejemplo
+            }
 
             // Obtener el contador de IDs desde localStorage
             let idCounter = parseInt(localStorage.getItem("idCounter")) || 1;
@@ -163,6 +166,25 @@
 
             // Guardar la lista actualizada en localStorage
             localStorage.setItem("asientos", JSON.stringify(asientos));
+
+            // Crear un nuevo gasto
+            const nuevoGasto = {
+                id: Date.now(), // Usar la marca de tiempo como ID único
+                descripcion,
+                monto,
+                fecha,
+                nombreDestinatario,
+                telefono,
+                direccion,
+                tipo: metodoPago === "cripto" ? "Venta en Criptomonedas" : "Venta en Mercado Pago"
+            };
+
+            // Obtener los gastos existentes de localStorage
+            const gastos = JSON.parse(localStorage.getItem("gastos")) || [];
+            gastos.push(nuevoGasto);
+
+            // Guardar la lista actualizada de gastos en localStorage
+            localStorage.setItem("gastos", JSON.stringify(gastos));
 
             // Limpiar el carrito y mostrar mensaje de éxito
             localStorage.removeItem("carrito");
