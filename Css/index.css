@@ -37,13 +37,19 @@ body{
     font-family: Arial, sans-serif;
     background-color: #8d9adb;
     color: #333;
+    padding-left: 300px;
+    padding-top: 60px;
 
 }
 
 /* ===Header=== */
 
 header{
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 1000;
     background-color: #bbccde;
 }
 
@@ -218,20 +224,20 @@ button:hover {
 /* ===List Aside=== */
 
 .listAside {
-    width: 100%;
-    max-width: 300px; /* Ajusta el ancho del aside según necesites */
-    padding: 20px;
-    background-color: #f9f9f9; /* Color de fondo claro */
-    border: 1px solid #ddd; /* Borde sutil */
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-    flex-direction: column;
-    height: 100vh;
-    box-sizing: border-box;
-    margin: 0; /* Elimina los márgenes */
-    position: fixed; /* Fija el aside a la izquierda */
-    top: 0; /* Ajusta la posición superior si es necesario */
+
+    position: fixed;
+    top: 0;
     left: 0;
-    overflow-y: auto;
+    width: 250px;  /* Ajusta según el diseño */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh;  /* Cambiado de 'height' a 'min-height' */
+    box-sizing: border-box;
+    margin-top: 5rem;
+
+
 }
 
 .listAside h2 {
