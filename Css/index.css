@@ -1,4 +1,17 @@
+/* Estilo de la fuente */
+
+@font-face{
+
+    font-family: 'GrenzeGotisch';
+    src: url('/Fuentes/GrenzeGotisch-VariableFont_wght.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /* Estilos generales */
+
+
 * {
     font-family: Arial, sans-serif;
     padding: 0;
@@ -53,9 +66,18 @@ header{
     margin-left: 17rem;
     flex-grow: 1;
     text-align: center;
-    color: #007bff;
+    color: #000000;
     font-size: 2.0rem;
     animation: fadeIn 2s ease-in-out; /* Aplicar la animación */
+}
+
+.titulo-pedilo {
+
+    font-size: 2.8rem;
+    font-family: 'GrenzeGotisch';
+     /* Cambia 'TuFuenteElegida' por la fuente que prefieras */
+    font-weight: bold; /* Opcional: ajustar el peso de la fuente */
+    color: #0b4ee9; /* Opcional: cambiar el color */
 }
 
 /* Definir la animación */
