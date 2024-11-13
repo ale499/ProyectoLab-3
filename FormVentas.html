@@ -232,6 +232,9 @@
 
                         const preference = await response.json();
 
+                        // Obtener el contador de IDs desde localStorage
+                        let idCounter = parseInt(localStorage.getItem("idCounter")) || 1;
+
                         if (preference.init_point) {
                             // Guardar la información de la compra en localStorage
                             const descripcion = carrito.map(item => `${item.cantidad}x ${item.nombre} ($${item.precio} c/u)`).join(", ");
@@ -290,7 +293,6 @@
                 botonPagoContainer.innerHTML = '';
             }
         }
-
         // Inicializar Mercado Pago
         const mp = new MercadoPago('APP_USR-d6aa5a0e-935a-4744-abb9-697d6cc5e573', {
             locale: 'es-AR'

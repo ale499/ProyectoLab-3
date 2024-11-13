@@ -192,7 +192,7 @@ main{
 
 button {
     background-color: #28a745;
-    color: #fff;
+    color: black;
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -357,4 +357,33 @@ button:hover {
     width: 40px; /* Ajusta el tamaño según necesites */
     height: 40px;
 }
+
+/* Estilos para la scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo de la scrollbar */
+    border-radius: 10px; /* Border radius del track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #007bff; /* Color del thumb de la scrollbar */
+    border-radius: 0.4rem; /* Border radius del thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Color del thumb al pasar el cursor */
+}
+
+.dropdown-content button:hover {
+    background-color: #ddd;
+}
+
+/* Mostrar el menú al hacer clic */
+.show { display: block; }
+
+
+
 
