@@ -8,7 +8,8 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body>
-<!-- Botón de Menú y Encabezado -->
+
+    <!-- Botón de Menú y Encabezado -->
     <header>
         <div class="containerprincipal_header">
             <div class="containerItems_header">
@@ -25,7 +26,6 @@
             </div>
         </div>    
     </header>
-
     <!-- Formulario de ventas -->
     <form>
     
@@ -121,6 +121,8 @@
                 alert("Por favor, completa todos los campos.");
                 return;
             }
+
+            // Si el método de pago es Criptomonedas, convierte el monto
             if (metodoPago === "cripto") {
                 monto = await convertirCriptoAMonedaFiduciaria(monto, 'usd'); // convertir a USD por ejemplo
             }
@@ -128,32 +130,18 @@
             // Obtener el contador de IDs desde localStorage
             let idCounter = parseInt(localStorage.getItem("idCounter")) || 1;
 
-            // Crear los asientos contables
-            const asientoDebe = {
+            // Crear el asiento contable combinado
+            const asiento = {
                 id: idCounter++, // Usar el contador de IDs
-                tipo: "Debe",
                 descripcion: "Venta de productos",
                 monto,
                 fecha,
-                cuenta: "Ventas",
+                cuentaDebe: "Ventas",
+                cuentaHaber: metodoPago === "cripto" ? "Criptomonedas" : "Mercado Pago",
                 nombreDestinatario,
                 telefono,
                 direccion,
                 debito: monto,
-                credito: 0
-            };
-
-            const asientoHaber = {
-                id: idCounter++, // Usar el contador de IDs
-                tipo: "Haber",
-                descripcion: "Venta de productos",
-                monto,
-                fecha,
-                cuenta: metodoPago === "cripto" ? "Criptomonedas" : "Mercado Pago",
-                nombreDestinatario,
-                telefono,
-                direccion,
-                debito: 0,
                 credito: monto
             };
 
@@ -162,7 +150,7 @@
 
             // Obtener los asientos existentes de localStorage
             const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
-            asientos.push(asientoDebe, asientoHaber);
+            asientos.push(asiento);
 
             // Guardar la lista actualizada en localStorage
             localStorage.setItem("asientos", JSON.stringify(asientos));
@@ -252,34 +240,17 @@
                             const telefono = document.getElementById('telefono').value;
                             const direccion = document.getElementById('direccion').value;
 
-                            // Obtener el contador de IDs desde localStorage
-                            let idCounter = parseInt(localStorage.getItem("idCounter")) || 1;
-
-                            const asientoDebe = {
+                            const asiento = {
                                 id: idCounter++, // Usar el contador de IDs
-                                tipo: "Debe",
                                 descripcion: "Venta de productos",
                                 monto: parseFloat(montoTotalInput.value),
                                 fecha,
-                                cuenta: "Ventas",
+                                cuentaDebe: "Ventas",
+                                cuentaHaber: "Mercado Pago",
                                 nombreDestinatario,
                                 telefono,
                                 direccion,
                                 debito: parseFloat(montoTotalInput.value),
-                                credito: 0
-                            };
-
-                            const asientoHaber = {
-                                id: idCounter++, // Usar el contador de IDs
-                                tipo: "Haber",
-                                descripcion: "Venta de productos",
-                                monto: parseFloat(montoTotalInput.value),
-                                fecha,
-                                cuenta: "Mercado Pago",
-                                nombreDestinatario,
-                                telefono,
-                                direccion,
-                                debito: 0,
                                 credito: parseFloat(montoTotalInput.value)
                             };
 
@@ -287,7 +258,7 @@
                             localStorage.setItem("idCounter", idCounter);
 
                             const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
-                            asientos.push(asientoDebe, asientoHaber);
+                            asientos.push(asiento);
                             localStorage.setItem("asientos", JSON.stringify(asientos));
 
                             const nuevoGasto = {

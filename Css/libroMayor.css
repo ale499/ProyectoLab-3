@@ -57,6 +57,24 @@ button:hover {
     background-color: #ff5722;
 }
 
+/* Estilos para el contenedor del formulario */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el select y el input de tipo date */
+.filter-container select,
+.filter-container input[type="date"] {
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: large;
+}
+
+
 @media screen and (max-width: 600px) {
     h2, th, td {
         font-size: medium;

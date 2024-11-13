@@ -88,6 +88,16 @@ button:hover {
     background-color: #ff5722;
 }
 
+.haber {
+
+    padding-left: 10px;
+    text-indent: 70px;
+
+
+}
+
+
+
 
 @media screen and (max-width: 600px){
 

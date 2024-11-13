@@ -8,14 +8,24 @@
 </head>
 <body>
     <h2>Libro Mayor</h2>
-    <button onclick="borrarDatos()">Borrar Datos</button>
-    <button onclick="window.location.href='asientosContables.html'">Ir a Asientos Contables</button>
+    <div class="filter-container">
+        <label for="cuentaSelect">Seleccionar Cuenta:</label>
+        <select id="cuentaSelect" onchange="filtrarMovimientos()">
+            <!-- Las opciones se llenarán dinámicamente -->
+        </select>
+        <label for="fechaSelect">Seleccionar Fecha:</label>
+        <input type="date" id="fechaSelect" onchange="filtrarMovimientos()">
+    </div>
     <div id="libroMayor"></div>
 
     <script>
         function cargarLibroMayor() {
             const libroMayorDiv = document.getElementById("libroMayor");
+            const cuentaSelect = document.getElementById("cuentaSelect");
+            const fechaSelect = document.getElementById("fechaSelect");
+
             libroMayorDiv.innerHTML = ""; // Limpiar el contenido antes de cargar
+            cuentaSelect.innerHTML = "<option value=''>Todas las cuentas</option>"; // Limpiar las opciones del select
 
             // Obtener los movimientos desde localStorage
             const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
@@ -29,10 +39,17 @@
             // Agrupar los movimientos por cuenta
             const cuentas = {};
             asientos.forEach(asiento => {
-                if (!cuentas[asiento.cuenta]) {
-                    cuentas[asiento.cuenta] = [];
+                if (!cuentas[asiento.cuentaDebe]) {
+                    cuentas[asiento.cuentaDebe] = [];
+                    cuentaSelect.innerHTML += `<option value="${asiento.cuentaDebe}">${asiento.cuentaDebe}</option>`;
                 }
-                cuentas[asiento.cuenta].push(asiento);
+                cuentas[asiento.cuentaDebe].push(asiento);
+
+                if (!cuentas[asiento.cuentaHaber]) {
+                    cuentas[asiento.cuentaHaber] = [];
+                    cuentaSelect.innerHTML += `<option value="${asiento.cuentaHaber}">${asiento.cuentaHaber}</option>`;
+                }
+                cuentas[asiento.cuentaHaber].push(asiento);
             });
 
             // Mostrar los movimientos por cuenta
@@ -78,11 +95,84 @@
             }
         }
 
-        function borrarDatos() {
-            localStorage.removeItem("asientos");
-            localStorage.removeItem("idCounter");
-            cargarLibroMayor();
-            alert("Datos borrados exitosamente.");
+        function filtrarMovimientos() {
+            const cuentaSelect = document.getElementById("cuentaSelect").value;
+            const fechaSelect = document.getElementById("fechaSelect").value;
+            const libroMayorDiv = document.getElementById("libroMayor");
+
+            libroMayorDiv.innerHTML = ""; // Limpiar el contenido antes de cargar
+
+            // Obtener los movimientos desde localStorage
+            const asientos = JSON.parse(localStorage.getItem("asientos")) || [];
+
+            if (asientos.length === 0) {
+                // Mostrar un mensaje si no hay movimientos registrados
+                libroMayorDiv.innerHTML = "<p>No hay movimientos registrados.</p>";
+                return;
+            }
+
+            // Filtrar los movimientos por cuenta y fecha
+            const movimientosFiltrados = asientos.filter(asiento => {
+                const coincideCuenta = !cuentaSelect || asiento.cuentaDebe === cuentaSelect || asiento.cuentaHaber === cuentaSelect;
+                const coincideFecha = !fechaSelect || asiento.fecha === fechaSelect;
+                return coincideCuenta && coincideFecha;
+            });
+
+            // Agrupar los movimientos filtrados por cuenta
+            const cuentas = {};
+            movimientosFiltrados.forEach(asiento => {
+                if (!cuentas[asiento.cuentaDebe]) {
+                    cuentas[asiento.cuentaDebe] = [];
+                }
+                cuentas[asiento.cuentaDebe].push(asiento);
+
+                if (!cuentas[asiento.cuentaHaber]) {
+                    cuentas[asiento.cuentaHaber] = [];
+                }
+                cuentas[asiento.cuentaHaber].push(asiento);
+            });
+
+            // Mostrar los movimientos filtrados por cuenta
+            for (const cuenta in cuentas) {
+                const cuentaDiv = document.createElement("div");
+                cuentaDiv.classList.add("cuenta");
+
+                const cuentaTitulo = document.createElement("h3");
+                cuentaTitulo.textContent = `Cuenta: ${cuenta}`;
+                cuentaDiv.appendChild(cuentaTitulo);
+
+                const table = document.createElement("table");
+                table.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Débito</th>
+                            <th>Crédito</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                `;
+                cuentaDiv.appendChild(table);
+
+                const tableBody = table.querySelector("tbody");
+                let saldo = 0;
+                cuentas[cuenta].forEach(asiento => {
+                    saldo += asiento.debito - asiento.credito;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${asiento.fecha}</td>
+                        <td>${asiento.descripcion}</td>
+                        <td>${asiento.debito ? `$${asiento.debito.toFixed(2)}` : ''}</td>
+                        <td>${asiento.credito ? `$${asiento.credito.toFixed(2)}` : ''}</td>
+                        <td>$${saldo.toFixed(2)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                libroMayorDiv.appendChild(cuentaDiv);
+            }
         }
 
         // Llamar a la función para cargar el libro mayor cuando se abra la página

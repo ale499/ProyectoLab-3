@@ -14,19 +14,17 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Tipo</th>
-                <th>Descripción</th>
-                <th>Débito</th>
-                <th>Crédito</th>
                 <th>Fecha</th>
                 <th>Cuenta</th>
+                <th>Débito</th>
+                <th>Crédito</th>
+                <th>Descripción</th>
             </tr>
         </thead>
         <tbody>
             <!-- Los datos se insertarán aquí dinámicamente -->
         </tbody>
     </table>
-</main>
 
     <script>
         function cargarAsientos() {
@@ -38,21 +36,33 @@
 
             if (asientos.length === 0) {
                 // Mostrar un mensaje si no hay asientos contables
-                tableBody.innerHTML = "<tr><td colspan='7'>No hay asientos contables registrados.</td></tr>";
+                tableBody.innerHTML = "<tr><td colspan='6'>No hay asientos contables registrados.</td></tr>";
             } else {
                 // Insertar cada asiento en la tabla
                 asientos.forEach(asiento => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
+                    // Fila para el debe
+                    const rowDebe = document.createElement("tr");
+                    rowDebe.innerHTML = `
                         <td>${asiento.id}</td>
-                        <td>${asiento.tipo}</td>
-                        <td>${asiento.descripcion}</td>
-                        <td>${asiento.debito ? `$${asiento.debito.toFixed(2)}` : ''}</td>
-                        <td>${asiento.credito ? `$${asiento.credito.toFixed(2)}` : ''}</td>
                         <td>${asiento.fecha}</td>
-                        <td>${asiento.cuenta}</td>
+                        <td>${asiento.cuentaDebe}</td>
+                        <td>${asiento.debito ? `$${asiento.debito.toFixed(2)}` : ''}</td>
+                        <td></td>
+                        <td>${asiento.descripcion}</td>
                     `;
-                    tableBody.appendChild(row);
+                    tableBody.appendChild(rowDebe);
+
+                    // Fila para el haber
+                    const rowHaber = document.createElement("tr");
+                    rowHaber.innerHTML = `
+                        <td>${asiento.id}</td>
+                        <td>${asiento.fecha}</td>
+                        <td class="haber">${asiento.cuentaHaber}</td>
+                        <td></td>
+                        <td>${asiento.credito ? `$${asiento.credito.toFixed(2)}` : ''}</td>
+                        <td>${asiento.descripcion}</td>
+                    `;
+                    tableBody.appendChild(rowHaber);
                 });
             }
         }
