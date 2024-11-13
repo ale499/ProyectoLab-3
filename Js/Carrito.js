@@ -1,3 +1,6 @@
+localStorage.removeItem("productos");
+
+
 // Verificar si hay un usuario registrado en el almacenamiento local
 const usuario = JSON.parse(localStorage.getItem('usuario'));
 
@@ -12,7 +15,10 @@ const inicializarProductos = () => {
             { id: 3, nombre: "Pizza", categoria: "Pizza", precio: 9800, img: "Imagenes/(pizza).jfif" },
             { id: 4, nombre: "Helado", categoria: "Postres", precio: 1600, img: "Imagenes/banana-split-620.webp" },
             { id: 5, nombre: "Combo Pedilo", categoria: "Combos", precio: 6000, img: "Imagenes/hamburger-potato-combo-staple-fast-600nw-2325787009.webp" },
-            { id: 6, nombre: "Combo Pedilo para chicos", categoria: "Combos", precio: 3500, img: "Imagenes/infantil02happystar-0351201390079782.jpg" }
+            { id: 6, nombre: "Combo Pedilo para chicos", categoria: "Combos", precio: 3500, img: "Imagenes/infantil02happystar-0351201390079782.jpg" },
+            { id: 7, nombre: "Panchos Pedilos", categoria: "Panchos", precio: 2500, img: "Imagenes/panchos.jpg"},
+            { id: 8, nombre: "Empanadas de JyQ", categoria: "Empanadas", precio: 3000, img: "Imagenes/empanadasJyQ.jpg"}
+
         ];
         // Guardar productos en el localStorage
         localStorage.setItem("productos", JSON.stringify(productosIniciales));
@@ -21,6 +27,14 @@ const inicializarProductos = () => {
 
 // Llamar a la función de inicialización de productos al cargar el carrito
 inicializarProductos();
+
+
+// Función para actualizar el contador de productos en el carrito
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalProductos = carrito.reduce((total, item) => total + item.cantidad, 0);
+    document.getElementById('cart-count').textContent = totalProductos;
+}
 
 
 
@@ -43,8 +57,13 @@ function agregarAlCarrito(nombre, precio, cantidadId) {
     }
 
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarContadorCarrito();
     alert(`${cantidad} ${nombre}(s) añadido(s) al carrito.`);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarContadorCarrito();
+});
 
 // Función para ir al carrito (formulario de ventas) solo si hay sesión iniciada
 function irAlCarrito() {
@@ -58,6 +77,8 @@ function irAlCarrito() {
 
 // Event listener for DOMContentLoaded event
 document.addEventListener("DOMContentLoaded", () => {
+    inicializarProductos();
+    actualizarContadorCarrito();
     // Función para filtrar productos por categoría
     function filtrarProductos(categoria) {
         // Obtener productos de localStorage

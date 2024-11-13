@@ -225,12 +225,13 @@ button:hover {
     border: 1px solid #ddd; /* Borde sutil */
     box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
     margin: 0; /* Elimina los márgenes */
     position: fixed; /* Fija el aside a la izquierda */
-    top: 8.8vh; /* Ajusta la posición superior si es necesario */
-    left: 0; /* Asegura que esté pegado a la izquierda */
+    top: 0; /* Ajusta la posición superior si es necesario */
+    left: 0;
+    overflow-y: auto;
 }
 
 .listAside h2 {

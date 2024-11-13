@@ -40,6 +40,7 @@
                     <button class="cart-btn" onclick="irAlCarrito()">
                 
                         <img src="./Imagenes/4305700.png" alt="Carrito" class="cart-icon">
+                        <span id="cart-count">0</span> <!-- Contador de productos -->
             
                     </button>        
                 </div>    
@@ -66,6 +67,8 @@
                 <li onclick="filtrarProductos('Pizza')">Pizza</li>
                 <li onclick="filtrarProductos('Postres')">Postres</li>
                 <li onclick="filtrarProductos('Combos')">Combos</li>
+                <li onclick="filtrarProductos('Panchos')">Panchos</li>
+                <li onclick="filtrarProductos('Empanadas')">Empanadas</li>
                 <li onclick="filtrarProductos('')">Todos</li>
 
             </ul>
@@ -133,6 +136,24 @@
                     <label for="cantidad-combo_niños">Cantidad:</label>
                     <input type="number" id="cantidad-combo_niños" min="1" value="1">
                     <button onclick="agregarAlCarrito('Combo Pedilo', 3500, 'cantidad-combo_niños')">Añadir al Carrito</button>
+                </div>
+
+                <div class="item">
+                    <h2>Panchos Pedilos</h2>
+                    <img src="Imagenes/panchos.jpg" alt="" class="imagen">
+                    <p>Precio: $2500</p>
+                    <label for="cantidad-panchos">Cantidad:</label>
+                    <input type="number" id="cantidad-panchos" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Panchos Pedilos', 2500, 'cantidad-panchos')">Añadir al Carrito</button>
+                </div>
+
+                <div class="item">
+                    <h2>Empanadas de JyQ</h2>
+                    <img src="Imagenes/empanadasJyQ.jpg" alt="" class="imagen">
+                    <p>Precio: $3000</p>
+                    <label for="cantidad-empanadas">Cantidad:</label>
+                    <input type="number" id="cantidad-empanadas" min="1" value="1">
+                    <button onclick="agregarAlCarrito('Empanadas de JyQ', 3000, 'cantidad-empanadas')">Añadir al Carrito</button>
                 </div>
 
             </section>
