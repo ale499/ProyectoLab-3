@@ -13,8 +13,10 @@
         <select id="cuentaSelect" onchange="filtrarMovimientos()">
             <!-- Las opciones se llenarán dinámicamente -->
         </select>
-        <label for="fechaSelect">Seleccionar Fecha:</label>
-        <input type="date" id="fechaSelect" onchange="filtrarMovimientos()">
+        <label for="fechaDesde">Desde:</label>
+        <input type="date" id="fechaDesde" onchange="filtrarMovimientos()">
+        <label for="fechaHasta">Hasta:</label>
+        <input type="date" id="fechaHasta" onchange="filtrarMovimientos()">
     </div>
     <button onclick="window.location.href='AsientosContables.html'">Ir a Asientos Contables</button>
     <button onclick="borrarDatos()">Borrar Datos</button>
@@ -24,7 +26,8 @@
         function cargarLibroMayor() {
             const libroMayorDiv = document.getElementById("libroMayor");
             const cuentaSelect = document.getElementById("cuentaSelect");
-            const fechaSelect = document.getElementById("fechaSelect");
+            const fechaDesde = document.getElementById("fechaDesde");
+            const fechaHasta = document.getElementById("fechaHasta");
 
             libroMayorDiv.innerHTML = ""; // Limpiar el contenido antes de cargar
             cuentaSelect.innerHTML = "<option value=''>Todas las cuentas</option>"; // Limpiar las opciones del select
@@ -99,7 +102,8 @@
 
         function filtrarMovimientos() {
             const cuentaSelect = document.getElementById("cuentaSelect").value;
-            const fechaSelect = document.getElementById("fechaSelect").value;
+            const fechaDesde = document.getElementById("fechaDesde").value;
+            const fechaHasta = document.getElementById("fechaHasta").value;
             const libroMayorDiv = document.getElementById("libroMayor");
 
             libroMayorDiv.innerHTML = ""; // Limpiar el contenido antes de cargar
@@ -113,10 +117,10 @@
                 return;
             }
 
-            // Filtrar los movimientos por cuenta y fecha
+            // Filtrar los movimientos por cuenta y rango de fechas
             const movimientosFiltrados = asientos.filter(asiento => {
                 const coincideCuenta = !cuentaSelect || asiento.cuentaDebe === cuentaSelect || asiento.cuentaHaber === cuentaSelect;
-                const coincideFecha = !fechaSelect || asiento.fecha === fechaSelect;
+                const coincideFecha = (!fechaDesde || asiento.fecha >= fechaDesde) && (!fechaHasta || asiento.fecha <= fechaHasta);
                 return coincideCuenta && coincideFecha;
             });
 
